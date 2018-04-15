@@ -27,7 +27,8 @@ return [
     'view_replace_str' => [
 		'__PUBLIC__'=>'/public/',
 		'__ROOT__' => '/',
-		'__ADMIN__' => 'http://127.0.0.1:81/BicycleEnterpriseWebsite/public/static/admin',
+        // '__ADMIN__' => 'http://127.0.0.1:81/github/BicycleEnterpriseWebsite/BicycleEnterpriseWebsite/public/static/admin',
+        '__ADMIN__' => '/static/admin',
 	]
 
 ];

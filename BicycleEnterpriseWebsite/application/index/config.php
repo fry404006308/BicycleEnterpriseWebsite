@@ -25,7 +25,7 @@ return [
     // | 输出替换设置
     // +----------------------------------------------------------------------
     'view_replace_str' => [
-		'__INDEX__' => 'http://127.0.0.1:81/BicycleEnterpriseWebsite/public/static/index',
+		'__INDEX__' => 'http://127.0.0.1:81/github/BicycleEnterpriseWebsite/BicycleEnterpriseWebsite/public/static/index',
 	]
 
 ];
