@@ -3,7 +3,9 @@ namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Admin as ModelAdmin;
 
-class Admin extends Controller
+use app\admin\controller\Base;
+
+class Admin extends Base
 {
     // //初始胡方法
     // public function _initialize(){
@@ -98,4 +100,9 @@ class Admin extends Controller
             $this->error('删除管理员失败！！');
         }
     }
+
+
+
+
+
 }
