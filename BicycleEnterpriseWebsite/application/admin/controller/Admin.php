@@ -2,7 +2,8 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Admin as ModelAdmin;
-
+use think\Validate;
+use think\Loader;
 use app\admin\controller\Base;
 
 class Admin extends Base
@@ -28,6 +29,13 @@ class Admin extends Base
         if(request()->isPost()){
             //获取post提交的数据
             $data=input('post.');
+
+            //验证
+            $validate = Loader::validate('Admin');
+            if(!$validate->scene('add')->check($data)){
+                $this->error($validate->getError()); die;
+            }
+
             //模型处理获取的数据
             $modelAdmin= new ModelAdmin();
             //结果
@@ -71,6 +79,12 @@ class Admin extends Base
         //判断是否为用户post提交
         if(request()->isPost()){
             $data1=input('post.');
+
+            //验证
+            $validate = Loader::validate('Admin');
+            if(!$validate->scene('edit')->check($data)){
+                $this->error($validate->getError()); die;
+            }
             // dump($data1);die;
             // 将修改好的数据传入到数据库
             $res=$modelAdmin->editAdmin($data1);

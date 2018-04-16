@@ -57,6 +57,7 @@
                                         <thead class="">
                                             <tr>
                                                 <th class="text-center" width="10%">栏目ID</th>
+                                                <th class="text-center" width="10%">栏目排序</th>
                                                 <th class="text-center">栏目名称</th>
                                                 <th class="text-center">栏目类型</th>
                                                 <th class="text-center">栏目上级id</th>
@@ -67,6 +68,7 @@
                                             {volist name="data" id="vo"}
                                             <tr>
                                                 <td align="center">{$vo.id}</td>
+                                                <td align="center"><input type="text" value="{$vo.sort}" style="width:50px;text-align:center"></td>
                                                 <td >{if condition="$vo.level neq 0"}|{/if}<?php echo str_repeat('----',$vo['level'])?>{$vo.catename}</td>
                                                 <td align="center">
                                                     {if condition="$vo['type'] eq 1"}

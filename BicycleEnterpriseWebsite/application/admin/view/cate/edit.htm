@@ -67,9 +67,10 @@
                                                 <select name="pid" id="">
                                                     <option value="0">顶级栏目</option>
                                                     {volist name="data" id="vo"}
-                                                        <option {if condition="$dataOne.pid eq $vo.id"} selected="selected" {/if} value="{$vo.id}">{if condition="$vo.level neq 0"}|{/if}<?php echo str_repeat('----',$vo['level'])?>{$vo.catename}</option>
+                                                        {if condition="$dataOne.id neq $vo.id"} 
+                                                            <option {if condition="$dataOne.pid eq $vo.id"} selected="selected" {/if}  value="{$vo.id}">{if condition="$vo.level neq 0"}|{/if}<?php echo str_repeat('----',$vo['level'])?>{$vo.catename}</option>
+                                                        {/if} 
                                                     {/volist}
-
                                                 </select>
                                             </div>
                                             <p class="help-block col-sm-4 red">* 必填</p>
