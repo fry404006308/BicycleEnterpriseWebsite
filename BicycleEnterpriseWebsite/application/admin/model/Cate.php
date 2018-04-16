@@ -37,4 +37,41 @@ class Cate extends Model
     	}
     	return $arr;
     }
+
+
+
+    /**
+     * 判断一个栏目是否还有孩子
+     * @param  [type]  $data 所有栏目的数据
+     * @param  [type]  $id   当前栏目id
+     * @return boolean       true表示还有孩子
+     */
+    public function hasChild($id){
+        $data=$this->select();
+        foreach ($data as $k => $v) {
+            if($v['pid']==$id) return true;
+        }
+        return false;
+    }
+
+
+    //获得指定id的所有孩子的数组
+    public function getChilden($id){
+        $data=$this->select();
+        $res=$this->getChildenId($data,$id);
+        // dump($res);die;
+        return $res;
+    }
+
+    //获得指定id的所有孩子的数组
+    public function getChildenId($data,$id){
+        static $arr=array();
+        foreach ($data as $k => $v) {
+            if($v['pid']==$id){
+                $arr[]=$v['id'];
+                $this->getChildenId($data,$v['id']);
+            }
+        }
+        return $arr;
+    }
 }
