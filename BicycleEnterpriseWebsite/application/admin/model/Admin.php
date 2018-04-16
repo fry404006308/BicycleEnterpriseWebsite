@@ -7,7 +7,7 @@ class Admin extends Model
 
     /**
      * [增加管理员]
-     * @param [type] $data [传入用户信息数组]
+     * @param [type] $data [传入管理员信息数组]
      */
 	public function addAdmin($data){
         //传到控制器的数据，不为空且为数组才处理
