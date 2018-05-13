@@ -22,14 +22,7 @@ class Article extends Base
             $datain['time']=time();
             $modelArticle=new ModelArticle();
             //2、获取传入的文件数据
-            if($_FILES['athumb']['tmp_name']){
-                // 获取表单上传文件 例如上传了001.jpg
-                $file = request()->file('athumb');
-                // 移动到框架应用根目录/public/uploads/ 目录下
-                $info = $file->move(ROOT_PATH . 'public' . DS . 'static/uploads/admin');
-                // 已经上传成功，我们要把文件的路径写进数据库
-                $datain['athumb']='/static/uploads/admin/'.$info->getSaveName();
-            }
+            /*在模型的事件中处理了*/
             if($modelArticle->save($datain)){
                 $this->success('添加文章成功！！','article/lst');
             }else{
@@ -43,6 +36,35 @@ class Article extends Base
         $modelCate=new ModelCate();
         $data=$modelCate->catetree();
         $this->assign('data',$data);
+
+        return view();
+    }
+
+
+    public function edit(){
+        //1、将栏目信息显示回修改界面
+        $modelCate=new ModelCate();
+        $dataout=$modelCate->catetree();
+        $this->assign('dataout',$dataout);
+        //2、将文章信息返回给修改页面显示
+        $id= input('id');
+        $dataArticle=db('article')->find($id);
+        $this->assign('dataArticle',$dataArticle);
+        //3、获取表单提交的数据
+        if(request()->isPost()){
+            //1、获取传入的非文件数据
+            $datain=input('post.');
+            $modelArticle=new ModelArticle();
+            //2、获取传入的文件数据
+            /*在模型的事件中处理了*/
+            if($modelArticle->update($datain)){
+                $this->success('修改文章成功！！','article/lst');
+            }else{
+                $this->error('修改文章失败！！');
+            }
+            // dump($datain);die;
+            return;
+        }
 
         return view();
     }
