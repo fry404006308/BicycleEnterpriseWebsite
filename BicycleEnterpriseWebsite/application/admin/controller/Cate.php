@@ -2,6 +2,7 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Cate as ModelCate;
+use app\admin\model\Article as ModelArticle;
 
 use app\admin\controller\Base;
 
@@ -93,6 +94,27 @@ class Cate extends Base
     }
 
 
+    //删除前删除所有的孩子
+    public function delChilden(){
+        //1、获取要删除孩子的栏目id
+        $id = input('id');
+        //2、在模型中找到这个id对应的所有孩子，以及孩子的文章及图片
+        $modelCate=new ModelCate();
+        $ids=$modelCate->getChilden($id);
+        $allCateIds = $ids;
+        $allCateIds[] = $id;
+        foreach ($allCateIds as $k => $v) {
+            $modelArticle=new ModelArticle();
+            $modelArticle->where(array('acateid'=>$v))->delete();
+        }
+        //3、在数据库中删除所有孩子
+        if($ids){
+            $res = db('cate')->delete($ids);
+            if(!$res) $this->error('删除当前栏目的子栏目失败');
+        }
+        
+    }
+
     //删除无限分类的第二种方法：删除掉这个栏目及所有的孩子
     public function del(){
         //1、在前置方法里面删掉所有孩子
@@ -106,20 +128,6 @@ class Cate extends Base
         }
     }
 
-    //删除前删除所有的孩子
-    public function delChilden(){
-        //1、获取要删除孩子的栏目id
-        $id = input('id');
-        //2、在模型中找到这个id对应的所有孩子
-        $modelCate=new ModelCate();
-        $ids=$modelCate->getChilden($id);
-        //3、在数据库中删除所有孩子
-        if($ids){
-            $res = db('cate')->delete($ids);
-            if(!$res) $this->error('删除当前栏目的子栏目失败');
-        }
-        
-    }
 
 
 

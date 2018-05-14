@@ -82,7 +82,7 @@
                                                     <a href="{:url('article/edit',array('id'=>$vo['aid']))}" class="btn btn-primary btn-sm shiny">
                                                         <i class="fa fa-edit"></i> 编辑
                                                     </a>
-                                                    <a href="#" onClick="warning('确实要删除吗', '#" class="btn btn-danger btn-sm shiny">
+                                                    <a href="#" onClick="warning('确实要删除吗', '{:url('article/delete',array('id'=>$vo['aid']))}')" class="btn btn-danger btn-sm shiny">
                                                         <i class="fa fa-trash-o"></i> 删除
                                                     </a>
                                                 </td>

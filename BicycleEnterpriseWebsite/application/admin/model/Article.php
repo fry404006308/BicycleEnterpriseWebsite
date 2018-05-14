@@ -37,5 +37,17 @@ class Article extends Model
                 $datain['athumb']='/static/uploads/admin/'.$info->getSaveName();
             }
         });
+
+        Article::event('before_delete', function ($datain) {
+            //1、删除原来的图片
+            $dataArticle = Article::find($datain->aid);
+            /*$_SERVER['DOCUMENT_ROOT'] string(129) "E:/2017-02-21--SoftWare/PHP/SOFTWARE/phpStudy_New/PHPTutorial/WWW/github/BicycleEnterpriseWebsite/BicycleEnterpriseWebsite/public"*/
+            $thumbpath=$_SERVER['DOCUMENT_ROOT'].$dataArticle->athumb;
+            if(file_exists($thumbpath)){
+                @unlink($thumbpath);
+            }
+        });
+
+
     }
 }    

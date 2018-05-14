@@ -69,6 +69,13 @@ class Article extends Base
         return view();
     }
 
-
+    public function delete(){
+        $id = input('id');
+        if(ModelArticle::destroy($id)){
+            $this->success('删除文章成功！','article/lst');
+        }else{
+            $this->error('删除文章失败！');
+        }
+    }
 
 }
